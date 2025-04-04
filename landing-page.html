@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Innovation Landing Page</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Landing Page Specific Styles */
+    .hero {
+      background: url('https://via.placeholder.com/1200x400') no-repeat center center;
+      background-size: cover;
+      color: white;
+      text-align: center;
+      padding: 5rem 2rem;
+      position: relative;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .features {
+      padding: 3rem 1rem;
+    }
+    
+    .feature-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Web & Mobile Technology Solutions</h1>
+      <p>Innovative solutions for modern businesses</p>
+    </div>
+  </section>
+
+  <main>
+    <section id="about" class="about">
+      <h2>About Our Company</h2>
+      <p>We specialize in creating cutting-edge web and mobile applications that drive business growth.</p>
+    </section>
+
+    <section id="features" class="features">
+      <h2>Our Services</h2>
+      <div class="feature-list">
+        <ul>
+          <li>Custom Web Development</li>
+          <li>Mobile App Development</li>
+          <li>UI/UX Design</li>
+          <li>Cloud Solutions</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Get In Touch</h2>
+      <p>Email us at: <a href="mailto:contact@businessweb.com">contact@businessweb.com</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Business Web & Mobile Technology</p>
+  </footer>
+</body>
+</html>
