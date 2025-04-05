@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio | Web & Mobile Developer</title>
+    <title>Your Name | Web & Mobile Developer</title>
     <style>
         :root {
             --primary: #6e48aa;
@@ -22,113 +22,130 @@
             color: var(--dark);
             background-color: var(--light);
         }
+        
         /* Navigation */
         nav {
             background: white;
-            padding: 1rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         .nav-container {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             max-width: 1200px;
             margin: 0 auto;
         }
         .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
+            font-size: 1.8rem;
+            font-weight: 700;
             color: var(--primary);
             text-decoration: none;
         }
         .nav-links {
             display: flex;
-            gap: 1.5rem;
+            gap: 2rem;
             list-style: none;
         }
         .nav-links a {
             color: var(--dark);
             text-decoration: none;
+            font-weight: 500;
             transition: color 0.3s;
         }
         .nav-links a:hover {
             color: var(--primary);
         }
+        
         /* Hero Section */
         .hero {
             min-height: 80vh;
+            display: flex;
+            align-items: center;
+            padding: 2rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             color: white;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
         }
-        .hero h1 {
-            font-size: 2.5rem;
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        .hero-text h1 {
+            font-size: 3rem;
             margin-bottom: 1rem;
         }
-        /* Projects Grid */
+        .hero-text p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .profile-img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        /* Projects Preview */
         .projects {
+            padding: 5rem 2rem;
             max-width: 1200px;
-            margin: 3rem auto;
-            padding: 0 1rem;
+            margin: 0 auto;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--primary);
         }
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
         }
         .project-card {
             background: white;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             transition: transform 0.3s;
         }
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
         }
         .project-img {
-            height: 180px;
-            background: linear-gradient(135deg, #4776E6, #8E54E9);
-            display: grid;
-            place-items: center;
-            color: white;
-            font-size: 2rem;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
         }
         .project-info {
             padding: 1.5rem;
         }
         .project-link {
             display: inline-block;
-            margin-top: 1rem;
             padding: 0.5rem 1rem;
             background: var(--primary);
             color: white;
             text-decoration: none;
-            border-radius: 4px;
+            border-radius: 5px;
+            margin-top: 1rem;
         }
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 3rem;
-        }
-        /* Mobile Responsive */
+        
+        /* Responsive Design */
         @media (max-width: 768px) {
-            .nav-links {
-                display: none; /* Replace with hamburger menu if needed */
-            }
-            .hero h1 {
-                font-size: 2rem;
-            }
-            .projects-grid {
+            .hero-content {
                 grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .nav-links {
+                gap: 1rem;
             }
         }
     </style>
@@ -139,7 +156,7 @@
         <div class="nav-container">
             <a href="index.html" class="logo">MyPortfolio</a>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html" class="active">Home</a></li>
                 <li><a href="rps-game.html">RPS Game</a></li>
                 <li><a href="rss-reader.html">RSS Reader</a></li>
                 <li><a href="feature-page.html">Features</a></li>
@@ -147,39 +164,52 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Profile -->
     <section class="hero">
-        <h1>Web & Mobile Technology Portfolio</h1>
-        <p>Explore my interactive projects below</p>
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Hi, I'm <span style="color:#ffd700;">[Your Name]</span></h1>
+                <p>Web & Mobile Developer specializing in creating responsive, user-friendly applications. With expertise in HTML, CSS, JavaScript, and modern frameworks, I transform ideas into functional digital experiences.</p>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="#projects" class="project-link">View My Work</a>
+                    <a href="#" class="project-link" style="background: transparent; border: 2px solid white;">Download CV</a>
+                </div>
+            </div>
+            <div>
+                <!-- Replace with your photo -->
+                <img src="assets/profile.jpg" alt="Profile Photo" class="profile-img">
+            </div>
+        </div>
     </section>
 
     <!-- Projects Section -->
-    <section class="projects">
-        <h2>Featured Projects</h2>
+    <section id="projects" class="projects">
+        <h2 class="section-title">Featured Projects</h2>
         <div class="projects-grid">
-            <!-- Project 1 -->
             <div class="project-card">
-                <div class="project-img">✊✋✌️</div>
+                <div class="project-img" style="background: linear-gradient(135deg, #4776E6, #8E54E9); display: grid; place-items: center; color: white; font-size: 2rem;">
+                    ✊✋✌️
+                </div>
                 <div class="project-info">
                     <h3>Rock Paper Scissors</h3>
-                    <p>Interactive game with score tracking</p>
+                    <p>Interactive game with dynamic score tracking and animations</p>
                     <a href="rps-game.html" class="project-link">View Project</a>
                 </div>
             </div>
-            
-            <!-- Project 2 -->
             <div class="project-card">
-                <div class="project-img">📰</div>
+                <div class="project-img" style="background: linear-gradient(135deg, #1FA2FF, #12D8FA); display: grid; place-items: center; color: white; font-size: 2rem;">
+                    📰
+                </div>
                 <div class="project-info">
                     <h3>RSS Reader</h3>
-                    <p>Multi-feed news dashboard</p>
+                    <p>Multi-feed dashboard with real-time updates</p>
                     <a href="rss-reader.html" class="project-link">View Project</a>
                 </div>
             </div>
-            
-            <!-- Project 3 -->
             <div class="project-card">
-                <div class="project-img">✨</div>
+                <div class="project-img" style="background: linear-gradient(135deg, #FF512F, #DD2476); display: grid; place-items: center; color: white; font-size: 2rem;">
+                    ✨
+                </div>
                 <div class="project-info">
                     <h3>Feature Page</h3>
                     <p>Modern CSS techniques showcase</p>
@@ -188,9 +218,5 @@
             </div>
         </div>
     </section>
-
-    <footer>
-        <p>&copy; 2025 My Portfolio. All rights reserved.</p>
-    </footer>
 </body>
 </html>
