@@ -1,110 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rock Paper Scissors</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <style>
-    /* RPS Game Specific Styles */
-    .game-container {
-      max-width: 600px;
-      margin: 2rem auto;
-      padding: 1rem;
-      text-align: center;
-    }
-    
-    .choices {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin: 2rem 0;
-    }
-    
-    .choice-btn {
-      padding: 1rem;
-      font-size: 1.2rem;
-      background: #004080;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    
-    .choice-btn:hover {
-      background: #0066cc;
-      transform: scale(1.05);
-    }
-    
-    .scoreboard {
-      display: flex;
-      justify-content: space-around;
-      margin: 2rem 0;
-      padding: 1rem;
-      background: #f4f4f4;
-      border-radius: 5px;
-    }
-    
-    .score-item {
-      text-align: center;
-    }
-    
-    #result {
-      font-size: 1.2rem;
-      font-weight: bold;
-      margin: 1rem 0;
-      min-height: 2rem;
-    }
-    
-    #reset-btn {
-      padding: 0.5rem 1rem;
-      background: #ff3333;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <style>
+        /* RPS Game Specific Styles */
+        .game-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .choices {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .choice-btn {
+            padding: 1rem;
+            font-size: 1.2rem;
+            background: #004080;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .choice-btn:hover {
+            background: #0066cc;
+            transform: scale(1.05);
+        }
+
+        .scoreboard {
+            display: flex;
+            justify-content: space-around;
+            margin: 2rem 0;
+            padding: 1rem;
+            background: #f4f4f4;
+            border-radius: 5px;
+        }
+
+        .score-item {
+            text-align: center;
+        }
+
+        #result {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            min-height: 2rem;
+        }
+
+        #reset-btn {
+            padding: 0.5rem 1rem;
+            background: #ff3333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* NEW STYLES */
+        .rps-hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: rgba(26, 26, 46, 0.7);
+            margin-bottom: 2rem;
+            border-radius: 15px;
+        }
+
+        .rps-hero h1 {
+            color: #ffd700;
+            font-size: 2.5rem;
+        }
+
+        .rps-about, .rps-rules {
+            background: rgba(30, 30, 46, 0.6);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 1rem auto;
+            max-width: 600px;
+            border-left: 3px solid #ffd700;
+        }
+
+        .rps-rules ul {
+            margin: 1rem 0 1rem 2rem;
+            text-align: left;
+        }
+
+        .rps-rules li {
+            margin-bottom: 0.5rem;
+        }
+
+        .play-button {
+            display: block;
+            width: fit-content;
+            padding: 1rem 2rem;
+            background: #ffd700;
+            color: #1a1a2e;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            margin: 2rem auto;
+            transition: all 0.3s;
+        }
+
+        .play-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .rps-hero h1 {
+                font-size: 2rem;
+            }
+            .choices {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="../index.html">Home</a></li>
-      </ul>
-    </nav>
-  </header>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="./index.html">Home</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <main class="game-container">
-    <h1>Rock Paper Scissors</h1>
-    
-    <div class="scoreboard">
-      <div class="score-item">
-        <h3>Wins</h3>
-        <p id="wins">0</p>
-      </div>
-      <div class="score-item">
-        <h3>Losses</h3>
-        <p id="losses">0</p>
-      </div>
-      <div class="score-item">
-        <h3>Ties</h3>
-        <p id="ties">0</p>
-      </div>
-    </div>
-    
-    <div class="choices">
-      <button class="choice-btn" id="rock">Rock</button>
-      <button class="choice-btn" id="paper">Paper</button>
-      <button class="choice-btn" id="scissors">Scissors</button>
-    </div>
-    
-    <div id="result"></div>
-    
-    <button id="reset-btn">Reset Score</button>
-  </main>
+    <!-- NEW CONTENT -->
+    <section class="rps-hero">
+        <h1>Rock, Paper, Scissors</h1>
+        <p>A classic game with a modern twist!</p>
+    </section>
 
-  <script src="../JS/projects/rps-game.js"></script>
+    <section class="rps-about">
+        <h2>About the Game</h2>
+        <p>
+            Rock, Paper, Scissors is a timeless hand game where players choose between three options: 
+            Rock (✊), Paper (✋), or Scissors (✌). This digital version includes a dynamic scoreboard 
+            to track your wins, losses, and ties.
+        </p>
+    </section>
+
+    <section class="rps-rules">
+        <h2>How to Play</h2>
+        <ul>
+            <li>✊ <strong>Rock</strong> crushes scissors</li>
+            <li>✋ <strong>Paper</strong> covers rock</li>
+            <li>✌ <strong>Scissors</strong> cut paper</li>
+        </ul>
+        <p>First to 5 wins becomes the champion!</p>
+    </section>
+
+    <a href="#game-container" class="play-button">Play Now →</a>
+
+    <!-- EXISTING GAME -->
+    <main id="game-container" class="game-container">
+        <h1>Let's Play!</h1>
+        
+        <div class="scoreboard">
+            <div class="score-item">
+                <h3>Wins</h3>
+                <p id="wins">0</p>
+            </div>
+            <div class="score-item">
+                <h3>Losses</h3>
+                <p id="losses">0</p>
+            </div>
+            <div class="score-item">
+                <h3>Ties</h3>
+                <p id="ties">0</p>
+            </div>
+        </div>
+
+        <div class="choices">
+            <button class="choice-btn" id="rock">✊ Rock</button>
+            <button class="choice-btn" id="paper">✋ Paper</button>
+            <button class="choice-btn" id="scissors">✌ Scissors</button>
+        </div>
+
+        <div id="result"></div>
+        <button id="reset-btn">Reset Score</button>
+    </main>
+
+    <script>
+        // Your existing JavaScript (from rps-game.js) goes here
+        document.addEventListener('DOMContentLoaded', () => {
+            // Game variables
+            let wins = 0;
+            let losses = 0;
+            let ties = 0;
+
+            // DOM elements
+            const rockBtn = document.getElementById('rock');
+            const paperBtn = document.getElementById('paper');
+            const scissorsBtn = document.getElementById('scissors');
+            const resetBtn = document.getElementById('reset-btn');
+            const resultDisplay = document.getElementById('result');
+            const winsDisplay = document.getElementById('wins');
+            const lossesDisplay = document.getElementById('losses');
+            const tiesDisplay = document.getElementById('ties');
+
+            // Game logic
+            function playRound(playerChoice) {
+                const choices = ['rock', 'paper', 'scissors'];
+                const computerChoice = choices[Math.floor(Math.random() * 3)];
+
+                if (playerChoice === computerChoice) {
+                    ties++;
+                    resultDisplay.textContent = "It's a tie!";
+                } else if (
+                    (playerChoice === 'rock' && computerChoice === 'scissors') ||
+                    (playerChoice === 'paper' && computerChoice === 'rock') ||
+                    (playerChoice === 'scissors' && computerChoice === 'paper')
+                ) {
+                    wins++;
+                    resultDisplay.textContent = `You win! ${playerChoice} beats ${computerChoice}`;
+                } else {
+                    losses++;
+                    resultDisplay.textContent = `You lose! ${computerChoice} beats ${playerChoice}`;
+                }
+
+                updateScoreboard();
+            }
+
+            function updateScoreboard() {
+                winsDisplay.textContent = wins;
+                lossesDisplay.textContent = losses;
+                tiesDisplay.textContent = ties;
+            }
+
+            function resetGame() {
+                wins = 0;
+                losses = 0;
+                ties = 0;
+                resultDisplay.textContent = '';
+                updateScoreboard();
+            }
+
+            // Event listeners
+            rockBtn.addEventListener('click', () => playRound('rock'));
+            paperBtn.addEventListener('click', () => playRound('paper'));
+            scissorsBtn.addEventListener('click', () => playRound('scissors'));
+            resetBtn.addEventListener('click', resetGame);
+        });
+    </script>
 </body>
 </html>
