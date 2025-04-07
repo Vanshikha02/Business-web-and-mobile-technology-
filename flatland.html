@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flatland Interactive Demo</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* Flatland-specific styles */
+        .flatland-container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        #square {
+            width: 200px;
+            height: 200px;
+            background: #ddd;
+            margin: 2rem auto;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        #words {
+            min-height: 50px;
+            padding: 1rem;
+            font-family: monospace;
+        }
+        
+        .flatland-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html">← Back to Portfolio</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="flatland-container">
+        <h1>Flatland Interactive</h1>
+        <p>Explore DOM manipulation through this interactive demo</p>
+        
+        <div id="words">Click the square to begin...</div>
+        <div id="square"></div>
+        
+        <div class="flatland-controls">
+            <button id="reset-btn">Reset</button>
+            <button id="buzzword-btn">Generate Buzzword</button>
+        </div>
+    </main>
+
+    <script src="../js/flatland.js"></script>
+</body>
+</html>
