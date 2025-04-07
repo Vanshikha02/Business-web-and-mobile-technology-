@@ -189,3 +189,27 @@ header {
     min-height: 80vh;
   }
 }
+/* New Logo Styles */
+.logo {
+  display: flex;
+  align-items: center;
+  height: 40px; /* Adjust based on your logo's height */
+}
+
+.logo-img {
+  height: 100%;
+  width: auto;
+  transition: transform var(--transition-speed);
+}
+
+.logo:hover .logo-img {
+  transform: scale(1.05);
+}
+nav {
+  padding: 1rem 2rem; /* Reduced from 1.5rem if needed */
+}
+@media (max-width: 768px) {
+  .logo {
+      height: 30px; /* Smaller logo on mobile */
+  }
+}
