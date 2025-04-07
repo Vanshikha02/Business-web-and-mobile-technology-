@@ -79,7 +79,7 @@
         /* Navigation */
         nav {
             background: rgba(26, 26, 46, 0.9);
-            padding: 1.5rem 2rem;
+            padding: 1rem 2rem;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -95,10 +95,20 @@
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent);
+            display: flex;
+            align-items: center;
+            height: 40px;
             text-decoration: none;
+        }
+
+        .logo-img {
+            height: 100%;
+            width: auto;
+            transition: transform var(--transition-speed);
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -381,6 +391,9 @@
             .nav-links {
                 gap: 1rem;
             }
+            .logo {
+                height: 30px;
+            }
             .skills-grid {
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             }
@@ -401,7 +414,9 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="logo">My Portfolio ✨</a>
+            <a href="index.html" class="logo">
+                <img src="images/Curtin.png" alt="Curtin Mauritius" class="logo-img">
+            </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#about">About Me</a></li>
@@ -506,7 +521,7 @@
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fas fa-envelope"></i></a>
             </div>
-            <p class="copyright">&copy; 2025 Business Web & Mobile Technology. All rights reserved.</p>
+            <p class="copyright">&copy; 2025 Curtin Mauritius. All rights reserved.</p>
         </div>
     </footer>
 
@@ -542,4 +557,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
