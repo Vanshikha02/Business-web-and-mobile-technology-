@@ -1,86 +1,268 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Multi-Feed RSS Dashboard</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <style>
-    /* RSS Reader Specific Styles */
-    .dashboard {
-      max-width: 1000px;
-      margin: 2rem auto;
-      padding: 1rem;
-    }
-    
-    .feed-selector {
-      margin: 1rem 0;
-      padding: 0.5rem;
-      font-size: 1rem;
-    }
-    
-    .articles-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin-top: 2rem;
-    }
-    
-    .article-card {
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 1rem;
-      transition: transform 0.3s ease;
-    }
-    
-    .article-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-    
-    .article-title {
-      margin-top: 0;
-      color: #004080;
-    }
-    
-    .article-meta {
-      font-size: 0.8rem;
-      color: #666;
-      margin-bottom: 0.5rem;
-    }
-    
-    @media (max-width: 768px) {
-      .articles-container {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Feed RSS Dashboard</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ===== RSS READER STYLES ===== */
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #ffd700;
+            --light: #ecf0f1;
+            --dark: #1a1a2e;
+        }
+
+        .dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+        }
+
+        /* Hero Section */
+        .rss-hero {
+            text-align: center;
+            padding: 3rem 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            color: white;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .rss-hero h1 {
+            font-size: 2.5rem;
+            margin: 0 0 0.5rem;
+        }
+
+        .rss-hero p {
+            opacity: 0.9;
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        /* Feed Selector */
+        .feed-selector-container {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .feed-selector {
+            padding: 0.8rem 1.2rem;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            width: 100%;
+            max-width: 400px;
+            margin-top: 0.5rem;
+            background: var(--light);
+        }
+
+        /* Articles Grid */
+        .articles-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .article-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .article-title {
+            margin: 0 0 0.5rem;
+            color: var(--primary);
+            font-size: 1.3rem;
+            line-height: 1.4;
+        }
+
+        .article-description {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #777;
+            margin-top: 1rem;
+        }
+
+        .read-more {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Loading & Error States */
+        #loading {
+            text-align: center;
+            padding: 2rem;
+            font-size: 1.1rem;
+            color: #666;
+            display: none;
+        }
+
+        .loading-spinner {
+            border: 4px solid rgba(0,0,0,0.1);
+            border-top: 4px solid var(--secondary);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        #error {
+            color: #e74c3c;
+            background: #fde8e8;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 1rem 0;
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .rss-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .articles-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <ul class="nav-links">
-        <li><a href="../index.html">Home</a></li>
-      </ul>
-    </nav>
-  </header>
+    <header>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="./index.html"><i class="fas fa-arrow-left"></i> Back to Portfolio</a></li>
+            </ul>
+        </nav>
+    </header>
 
-  <main class="dashboard">
-    <h1>Multi-Feed RSS Dashboard</h1>
-    
-    <label for="feed-selector">Choose a feed:</label>
-    <select id="feed-selector" class="feed-selector">
-      <option value="https://hacks.mozilla.org/feed/">Mozilla Hacks</option>
-      <option value="http://feeds.bbci.co.uk/news/world/rss.xml">BBC World News</option>
-      <option value="https://techcrunch.com/feed/">TechCrunch</option>
-    </select>
-    
-    <div id="loading">Loading articles...</div>
-    <div id="error" style="color: red; display: none;"></div>
-    
-    <div class="articles-container" id="articles-container"></div>
-  </main>
+    <main class="dashboard">
+        <!-- Hero Section -->
+        <section class="rss-hero">
+            <h1><i class="fas fa-rss"></i> Multi-Feed RSS Dashboard</h1>
+            <p>Stay updated with curated news sources in one place</p>
+        </section>
 
-  <script src="../JS/projects/rss-reader.js"></script>
+        <!-- Feed Selector -->
+        <div class="feed-selector-container">
+            <label for="feed-selector"><strong>Choose a news source:</strong></label>
+            <select id="feed-selector" class="feed-selector">
+                <option value="https://hacks.mozilla.org/feed/">Mozilla Hacks</option>
+                <option value="http://feeds.bbci.co.uk/news/world/rss.xml">BBC World News</option>
+                <option value="https://techcrunch.com/feed/">TechCrunch</option>
+                <option value="https://feeds.npr.org/1001/rss.xml">NPR News</option>
+            </select>
+        </div>
+
+        <!-- Status Messages -->
+        <div id="loading">
+            <div class="loading-spinner"></div>
+            <p>Loading articles...</p>
+        </div>
+        <div id="error"></div>
+
+        <!-- Articles Container -->
+        <div class="articles-container" id="articles-container"></div>
+    </main>
+
+    <script>
+        // DOM Elements
+        const feedSelector = document.getElementById('feed-selector');
+        const articlesContainer = document.getElementById('articles-container');
+        const loadingElement = document.getElementById('loading');
+        const errorElement = document.getElementById('error');
+
+        // Load Feed Function
+        async function loadFeed(feedUrl) {
+            // Show loading state
+            articlesContainer.innerHTML = '';
+            loadingElement.style.display = 'block';
+            errorElement.style.display = 'none';
+
+            try {
+                const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`);
+                const data = await response.json();
+
+                if (data.status === 'ok' && data.items && data.items.length > 0) {
+                    renderArticles(data.items);
+                } else {
+                    showError('No articles found in this feed.');
+                }
+            } catch (err) {
+                showError('Failed to load feed. Please try again later.');
+                console.error('Error:', err);
+            } finally {
+                loadingElement.style.display = 'none';
+            }
+        }
+
+        // Render Articles
+        function renderArticles(articles) {
+            articlesContainer.innerHTML = articles.map(article => `
+                <div class="article-card">
+                    <h3 class="article-title">${article.title}</h3>
+                    <div class="article-description">${article.description || 'No summary available'}</div>
+                    <div class="article-meta">
+                        <span>${new Date(article.pubDate).toLocaleDateString()}</span>
+                        <a href="${article.link}" target="_blank" class="read-more">
+                            Read more <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Show Error
+        function showError(message) {
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+            articlesContainer.innerHTML = '';
+        }
+
+        // Event Listeners
+        feedSelector.addEventListener('change', () => loadFeed(feedSelector.value));
+
+        // Initial Load
+        loadFeed(feedSelector.value);
+    </script>
 </body>
 </html>
