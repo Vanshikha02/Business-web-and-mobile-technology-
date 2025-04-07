@@ -3,62 +3,342 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flatland Interactive Demo</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Flatland Demo | Interactive DOM Manipulation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Flatland-specific styles */
+        :root {
+            /* Consistent with your portfolio theme */
+            --primary: #6e48aa;
+            --secondary: #9d50bb;
+            --accent: #ffd700;
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #252547;
+            --card-bg: rgba(26, 26, 46, 0.7);
+            --overlay: rgba(30, 30, 46, 0.85);
+            --border-color: rgba(255, 215, 0, 0.2);
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all var(--transition-speed);
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: url('../images/web-design-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay);
+            z-index: -1;
+        }
+
+        /* Navigation - Consistent with your portfolio */
+        nav {
+            background: rgba(26, 26, 46, 0.9);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        /* Flatland Demo Styles */
         .flatland-container {
             max-width: 800px;
             margin: 2rem auto;
             padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             text-align: center;
         }
-        
+
+        .flatland-container h1 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+
+        #words {
+            min-height: 100px;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin: 2rem 0;
+            font-size: 1.2rem;
+            border: 1px solid var(--border-color);
+        }
+
+        #buzzword {
+            font-size: 2rem;
+            color: var(--accent);
+            font-weight: bold;
+            margin-top: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
         #square {
             width: 200px;
             height: 200px;
-            background: #ddd;
+            background: var(--primary);
             margin: 2rem auto;
             transition: all 0.3s ease;
             cursor: pointer;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            border: 3px solid var(--accent);
         }
-        
-        #words {
-            min-height: 50px;
-            padding: 1rem;
-            font-family: monospace;
+
+        #square:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
         }
-        
+
         .flatland-controls {
             display: flex;
-            gap: 1rem;
+            gap: 1.5rem;
             justify-content: center;
-            margin-top: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .flatland-btn {
+            padding: 0.8rem 1.8rem;
+            border: none;
+            border-radius: 50px;
+            background: var(--accent);
+            color: var(--bg-primary);
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .flatland-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+
+        .flatland-btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-primary);
+            border: 1px solid var(--accent);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .flatland-container {
+                padding: 1.5rem;
+                margin: 1rem;
+            }
+            
+            #square {
+                width: 150px;
+                height: 150px;
+            }
+            
+            .flatland-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .flatland-btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">Flatland Demo ✨</a>
             <ul class="nav-links">
-                <li><a href="../index.html">← Back to Portfolio</a></li>
+                <li><a href="index.html">← Back to Portfolio</a></li>
             </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
+    <!-- Main Content -->
     <main class="flatland-container">
-        <h1>Flatland Interactive</h1>
+        <h1><i class="fas fa-shapes"></i> Flatland Interactive</h1>
         <p>Explore DOM manipulation through this interactive demo</p>
         
-        <div id="words">Click the square to begin...</div>
-        <div id="square"></div>
+        <div id="words">
+            <p>Click the square to begin...</p>
+            <div id="buzzword"></div>
+        </div>
+        
+        <div id="square">Click Me!</div>
         
         <div class="flatland-controls">
-            <button id="reset-btn">Reset</button>
-            <button id="buzzword-btn">Generate Buzzword</button>
+            <button class="flatland-btn btn-secondary" id="reset-btn">
+                <i class="fas fa-redo"></i> Reset
+            </button>
+            <button class="flatland-btn" id="buzzword-btn">
+                <i class="fas fa-bolt"></i> Generate Buzzword
+            </button>
         </div>
     </main>
 
-    <script src="../js/flatland.js"></script>
+    <script>
+        // DOM Elements
+        const square = document.getElementById('square');
+        const words = document.getElementById('words');
+        const buzzwordElement = document.getElementById('buzzword');
+        const resetBtn = document.getElementById('reset-btn');
+        const buzzwordBtn = document.getElementById('buzzword-btn');
+        
+        // Buzzwords array - tech themed
+        const buzzwords = [
+            "SYNERGY", "CLOUD-NATIVE", "BLOCKCHAIN", 
+            "AI-DRIVEN", "IOT", "BIG DATA", 
+            "MACHINE LEARNING", "DEVOPS", "MICROSERVICES",
+            "QUANTUM", "METAVERSE", "WEB3",
+            "CRYPTO", "AR/VR", "NEURAL NETWORKS"
+        ];
+        
+        // Color options - matching your theme
+        const colors = [
+            '#6e48aa', '#9d50bb', '#4776E6', 
+            '#1FA2FF', '#12D8FA', '#A6FFCB',
+            '#ffd700', '#ee8efb', '#a777e3'
+        ];
+        
+        // Initial setup
+        let clickCount = 0;
+        
+        // Event Listeners
+        square.addEventListener('click', function() {
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            this.style.backgroundColor = randomColor;
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
+            
+            clickCount++;
+            if (clickCount === 1) {
+                words.querySelector('p').textContent = "Great! Now try hovering over me!";
+            } else if (clickCount === 3) {
+                words.querySelector('p').textContent = "You're getting the hang of this!";
+            } else if (clickCount === 5) {
+                words.querySelector('p').textContent = "DOM master in the making!";
+            }
+        });
+        
+        square.addEventListener('mouseover', function() {
+            this.style.transform = 'scale(1.1) rotate(5deg)';
+            this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.4)';
+        });
+        
+        square.addEventListener('mouseout', function() {
+            this.style.transform = 'scale(1) rotate(0)';
+            this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.2)';
+        });
+        
+        buzzwordBtn.addEventListener('click', function() {
+            const randomBuzzword = buzzwords[Math.floor(Math.random() * buzzwords.length)];
+            buzzwordElement.textContent = randomBuzzword;
+            
+            // Add animation
+            buzzwordElement.style.animation = 'none';
+            void buzzwordElement.offsetWidth; // Trigger reflow
+            buzzwordElement.style.animation = 'pulse 2s infinite';
+            
+            this.innerHTML = `<i class="fas fa-bolt"></i> Another Buzzword`;
+            words.querySelector('p').textContent = "Tech buzzword generated!";
+        });
+        
+        resetBtn.addEventListener('click', function() {
+            square.style.backgroundColor = 'var(--primary)';
+            square.style.transform = 'scale(1)';
+            words.querySelector('p').textContent = "Click the square to begin...";
+            buzzwordElement.textContent = '';
+            clickCount = 0;
+            buzzwordBtn.innerHTML = `<i class="fas fa-bolt"></i> Generate Buzzword`;
+        });
+        
+        // Initial greeting
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                words.querySelector('p').textContent = "Welcome to Flatland Interactive!";
+            }, 1000);
+        });
+    </script>
 </body>
 </html>
