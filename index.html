@@ -7,26 +7,64 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
+            /* Light Theme (default) */
             --primary: #6e48aa;
             --secondary: #9d50bb;
             --accent: #ffd700;
-            --dark: #1a1a2e;
-            --light: #f8f9fa;
+            --text-primary: #ffffff;
+            --text-secondary: #e0e0e0;
+            --bg-primary: #1a1a2e;
+            --bg-secondary: #252547;
+            --card-bg: rgba(26, 26, 46, 0.7);
+            --overlay: rgba(30, 30, 46, 0.85);
+            --border-color: rgba(255, 215, 0, 0.2);
+            
+            /* Dark Theme */
+            --primary-dark: #8e6cce;
+            --secondary-dark: #b070d0;
+            --accent-dark: #ffdf80;
+            --text-primary-dark: #f8f9fa;
+            --text-secondary-dark: #d0d0d0;
+            --bg-primary-dark: #0d0d1a;
+            --bg-secondary-dark: #1a1a3a;
+            --card-bg-dark: rgba(37, 37, 71, 0.8);
+            --overlay-dark: rgba(13, 13, 26, 0.9);
+            
+            /* Animation & Layout */
+            scroll-behavior: smooth;
+            --transition-speed: 0.3s;
         }
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --primary: var(--primary-dark);
+            --secondary: var(--secondary-dark);
+            --accent: var(--accent-dark);
+            --text-primary: var(--text-primary-dark);
+            --text-secondary: var(--text-secondary-dark);
+            --bg-primary: var(--bg-primary-dark);
+            --bg-secondary: var(--bg-secondary-dark);
+            --card-bg: var(--card-bg-dark);
+            --overlay: var(--overlay-dark);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: background-color var(--transition-speed), color var(--transition-speed);
         }
+
         body {
             font-family: 'Segoe UI', sans-serif;
             line-height: 1.6;
-            color: white;
+            color: var(--text-primary);
             background: url('web-design\ 1.jpg') no-repeat center center fixed;
             background-size: cover;
             position: relative;
             min-height: 100vh;
         }
+
         body::before {
             content: '';
             position: absolute;
@@ -34,10 +72,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(30, 30, 46, 0.85);
+            background: var(--overlay);
             z-index: -1;
         }
-        
+
         /* Navigation */
         nav {
             background: rgba(26, 26, 46, 0.9);
@@ -47,6 +85,7 @@
             z-index: 100;
             backdrop-filter: blur(10px);
         }
+
         .nav-container {
             display: flex;
             justify-content: space-between;
@@ -54,30 +93,34 @@
             max-width: 1200px;
             margin: 0 auto;
         }
+
         .logo {
             font-size: 1.8rem;
             font-weight: 700;
             color: var(--accent);
             text-decoration: none;
         }
+
         .nav-links {
             display: flex;
             gap: 2rem;
             list-style: none;
         }
+
         .nav-links a {
             color: white;
             text-decoration: none;
             font-weight: 500;
-            transition: all 0.3s;
+            transition: all var(--transition-speed);
             padding: 0.5rem 1rem;
             border-radius: 5px;
         }
+
         .nav-links a:hover {
             color: var(--accent);
             background: rgba(255, 215, 0, 0.1);
         }
-        
+
         /* Hero Section */
         .hero {
             min-height: 90vh;
@@ -85,36 +128,41 @@
             align-items: center;
             padding: 4rem 2rem;
         }
+
         .hero-content {
             max-width: 1200px;
             margin: 0 auto;
             width: 100%;
         }
+
         .hero-text h1 {
             font-size: 3.5rem;
             margin-bottom: 1.5rem;
             line-height: 1.2;
         }
+
         .hero-text h1 span {
             color: var(--accent);
             display: inline-block;
         }
+
         .hero-text p {
             font-size: 1.3rem;
             margin-bottom: 2rem;
             max-width: 700px;
             opacity: 0.9;
         }
+
         .divider {
             height: 3px;
             background: linear-gradient(90deg, var(--accent), rgba(255,215,0,0));
             margin: 2rem 0;
             width: 100px;
         }
-        
+
         /* About Section */
         .about {
-            background: rgba(26, 26, 46, 0.7);
+            background: var(--card-bg);
             padding: 2.5rem;
             border-radius: 15px;
             max-width: 800px;
@@ -122,6 +170,7 @@
             backdrop-filter: blur(5px);
             border-left: 4px solid var(--accent);
         }
+
         .about h2 {
             color: var(--accent);
             margin-bottom: 1.5rem;
@@ -130,11 +179,12 @@
             align-items: center;
             gap: 0.8rem;
         }
+
         .about p {
             margin-bottom: 1.5rem;
             font-size: 1.1rem;
         }
-        
+
         /* Skills Grid */
         .skills-grid {
             display: grid;
@@ -142,23 +192,26 @@
             gap: 1.5rem;
             margin: 2rem 0;
         }
+
         .skill-card {
             background: rgba(255, 255, 255, 0.1);
             padding: 1.5rem;
             border-radius: 10px;
             text-align: center;
-            transition: transform 0.3s;
+            transition: transform var(--transition-speed);
         }
+
         .skill-card:hover {
             transform: translateY(-5px);
             background: rgba(255, 215, 0, 0.15);
         }
+
         .skill-card i {
             font-size: 2.5rem;
             color: var(--accent);
             margin-bottom: 1rem;
         }
-        
+
         /* Contact Button */
         .contact-btn {
             display: inline-flex;
@@ -166,25 +219,27 @@
             gap: 0.8rem;
             padding: 1rem 2rem;
             background: var(--accent);
-            color: var(--dark);
+            color: var(--bg-primary);
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
             margin-top: 1rem;
-            transition: all 0.3s;
+            transition: all var(--transition-speed);
             font-size: 1.1rem;
         }
+
         .contact-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
         }
-        
+
         /* Projects Section */
         .projects {
             padding: 5rem 2rem;
             max-width: 1200px;
             margin: 0 auto;
         }
+
         .section-title {
             color: var(--accent);
             margin-bottom: 3rem;
@@ -195,42 +250,49 @@
             justify-content: center;
             gap: 1rem;
         }
+
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
+
         .project-card {
-            background: rgba(26, 26, 46, 0.7);
+            background: var(--card-bg);
             border-radius: 15px;
             overflow: hidden;
-            transition: all 0.3s;
+            transition: all var(--transition-speed);
             backdrop-filter: blur(5px);
         }
+
         .project-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0,0,0,0.3);
         }
+
         .project-img {
             height: 200px;
             display: grid;
             place-items: center;
             font-size: 3rem;
         }
+
         .project-info {
             padding: 1.5rem;
         }
+
         .project-link {
             display: inline-block;
             padding: 0.7rem 1.5rem;
             background: var(--accent);
-            color: var(--dark);
+            color: var(--bg-primary);
             text-decoration: none;
             border-radius: 5px;
             margin-top: 1rem;
             font-weight: 600;
-            transition: all 0.3s;
+            transition: all var(--transition-speed);
         }
+
         .project-link:hover {
             background: white;
         }
@@ -240,9 +302,10 @@
             background: rgba(26, 26, 46, 0.95);
             padding: 2rem;
             text-align: center;
-            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            border-top: 1px solid var(--border-color);
             backdrop-filter: blur(5px);
         }
+
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -250,40 +313,66 @@
             flex-direction: column;
             gap: 1.5rem;
         }
+
         .footer-links {
             display: flex;
             justify-content: center;
             gap: 2rem;
             margin-bottom: 1rem;
         }
+
         .footer-links a {
             color: var(--accent);
             text-decoration: none;
-            transition: all 0.3s;
+            transition: all var(--transition-speed);
         }
+
         .footer-links a:hover {
             opacity: 0.8;
         }
+
         .copyright {
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
         }
+
         .social-links {
             display: flex;
             justify-content: center;
             gap: 1.5rem;
             margin-top: 1rem;
         }
+
         .social-links a {
             color: white;
             font-size: 1.2rem;
-            transition: all 0.3s;
+            transition: all var(--transition-speed);
         }
+
         .social-links a:hover {
             color: var(--accent);
             transform: translateY(-3px);
         }
-        
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3.5rem;
+            height: 3.5rem;
+            border-radius: 50%;
+            background: var(--accent);
+            color: var(--bg-primary);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+            border: none;
+            font-size: 1.2rem;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .hero-text h1 {
@@ -299,6 +388,12 @@
                 flex-direction: column;
                 gap: 1rem;
             }
+            .theme-toggle {
+                bottom: 1rem;
+                right: 1rem;
+                width: 3rem;
+                height: 3rem;
+            }
         }
     </style>
 </head>
@@ -311,7 +406,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="rps-game.html">RPS Game</a></li>
                 <li><a href="rss-reader.html">RSS Reader</a></li>
-                <li><a href="feature-page.html">Features</a></li>
+                <li><a href="flatland.html">Flatland Demo</a></li>
             </ul>
         </div>
     </nav>
@@ -382,13 +477,13 @@
                 </div>
             </div>
             <div class="project-card">
-                <div class="project-img" style="background: linear-gradient(135deg, #FF512F, #DD2476);">
-                    ✨
+                <div class="project-img" style="background: linear-gradient(135deg, #ee8efb, #a777e3);">
+                    📐
                 </div>
                 <div class="project-info">
-                    <h3>Feature Page</h3>
-                    <p>Modern CSS techniques showcase 🎨</p>
-                    <a href="feature-page.html" class="project-link">View Project</a>
+                    <h3>Flatland Demo</h3>
+                    <p>Interactive DOM manipulation showcase</p>
+                    <a href="flatland.html" class="project-link">View Project</a>
                 </div>
             </div>
         </div>
@@ -401,7 +496,7 @@
                 <a href="index.html">Home</a>
                 <a href="rps-game.html">RPS Game</a>
                 <a href="rss-reader.html">RSS Reader</a>
-                <a href="feature-page.html">Features</a>
+                <a href="flatland.html">Flatland Demo</a>
             </div>
             <div class="social-links">
                 <a href="#"><i class="fab fa-github"></i></a>
@@ -412,7 +507,37 @@
             <p class="copyright">&copy; 2025 Business Web & Mobile Technology. All rights reserved.</p>
         </div>
     </footer>
-    <p>&copy; 2025 Responsive Feature Page</p>
-</footer>
+
+    <!-- Dark Mode Toggle -->
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <script>
+        // Dark Mode Functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.querySelector('.theme-toggle');
+            const icon = themeToggle.querySelector('i');
+            
+            // Check for saved preference or system preference
+            const savedTheme = localStorage.getItem('theme') || 
+                             (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            
+            // Apply initial theme
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+            
+            // Toggle functionality
+            themeToggle.addEventListener('click', () => {
+                const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+                document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+                localStorage.setItem('theme', isDark ? 'light' : 'dark');
+                icon.classList.toggle('fa-moon');
+                icon.classList.toggle('fa-sun');
+            });
+        });
+    </script>
 </body>
-</html>  
+</html>
