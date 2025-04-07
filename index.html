@@ -97,13 +97,14 @@
         .logo {
             display: flex;
             align-items: center;
-            height: 40px;
+            height: 50px; /* Increased height for better logo visibility */
             text-decoration: none;
         }
 
         .logo-img {
             height: 100%;
             width: auto;
+            max-width: 180px; /* Controls maximum logo width */
             transition: transform var(--transition-speed);
         }
 
@@ -392,7 +393,7 @@
                 gap: 1rem;
             }
             .logo {
-                height: 30px;
+                height: 40px;
             }
             .skills-grid {
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -415,7 +416,7 @@
     <nav>
         <div class="nav-container">
             <a href="index.html" class="logo">
-                <img src="images/Curtin.png" alt="Curtin Mauritius" class="logo-img">
+                <img src="curtin.png" alt="Curtin Mauritius" class="logo-img">
             </a>
             <ul class="nav-links">
                 <li><a href="index.html">Home</a></li>
@@ -554,6 +555,14 @@
                 icon.classList.toggle('fa-moon');
                 icon.classList.toggle('fa-sun');
             });
+
+            // Debugging for logo
+            const logo = document.querySelector('.logo-img');
+            logo.onerror = function() {
+                console.error("Logo failed to load! Current src:", this.src);
+                this.style.border = "2px solid red";
+                this.parentElement.style.backgroundColor = "rgba(255,0,0,0.2)";
+            }
         });
     </script>
 </body>
