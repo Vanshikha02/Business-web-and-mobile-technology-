@@ -25,6 +25,7 @@
             background: url('web-design\ 1.jpg') no-repeat center center fixed;
             background-size: cover;
             position: relative;
+            min-height: 100vh;
         }
         body::before {
             content: '';
@@ -233,6 +234,55 @@
         .project-link:hover {
             background: white;
         }
+
+        /* Footer Section */
+        footer {
+            background: rgba(26, 26, 46, 0.95);
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            backdrop-filter: blur(5px);
+        }
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+        .footer-links a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .footer-links a:hover {
+            opacity: 0.8;
+        }
+        .copyright {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
         
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -244,6 +294,10 @@
             }
             .skills-grid {
                 grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            }
+            .footer-links {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
     </style>
@@ -339,5 +393,26 @@
             </div>
         </div>
     </section>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="rps-game.html">RPS Game</a>
+                <a href="rss-reader.html">RSS Reader</a>
+                <a href="feature-page.html">Features</a>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="copyright">&copy; 2025 Business Web & Mobile Technology. All rights reserved.</p>
+        </div>
+    </footer>
+    <p>&copy; 2025 Responsive Feature Page</p>
+</footer>
 </body>
 </html>
