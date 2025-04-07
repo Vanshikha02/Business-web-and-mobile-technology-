@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flatland Demo | Interactive DOM Manipulation</title>
+    <title>My Portfolio | AI-Enhanced Web Developer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            /* Consistent with your portfolio theme */
+            /* Light Theme (default) */
             --primary: #6e48aa;
             --secondary: #9d50bb;
             --accent: #ffd700;
@@ -19,16 +19,40 @@
             --overlay: rgba(30, 30, 46, 0.85);
             --border-color: rgba(255, 215, 0, 0.2);
             
+            /* Dark Theme */
+            --primary-dark: #8e6cce;
+            --secondary-dark: #b070d0;
+            --accent-dark: #ffdf80;
+            --text-primary-dark: #f8f9fa;
+            --text-secondary-dark: #d0d0d0;
+            --bg-primary-dark: #0d0d1a;
+            --bg-secondary-dark: #1a1a3a;
+            --card-bg-dark: rgba(37, 37, 71, 0.8);
+            --overlay-dark: rgba(13, 13, 26, 0.9);
+            
             /* Animation & Layout */
             scroll-behavior: smooth;
             --transition-speed: 0.3s;
+        }
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --primary: var(--primary-dark);
+            --secondary: var(--secondary-dark);
+            --accent: var(--accent-dark);
+            --text-primary: var(--text-primary-dark);
+            --text-secondary: var(--text-secondary-dark);
+            --bg-primary: var(--bg-primary-dark);
+            --bg-secondary: var(--bg-secondary-dark);
+            --card-bg: var(--card-bg-dark);
+            --overlay: var(--overlay-dark);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: all var(--transition-speed);
+            transition: background-color var(--transition-speed), color var(--transition-speed);
         }
 
         body {
@@ -52,7 +76,7 @@
             z-index: -1;
         }
 
-        /* Navigation - Consistent with your portfolio */
+        /* Navigation */
         nav {
             background: rgba(26, 26, 46, 0.9);
             padding: 1.5rem 2rem;
@@ -97,158 +121,183 @@
             background: rgba(255, 215, 0, 0.1);
         }
 
-        /* Main Content */
-        .container {
-            max-width: 1000px;
-            margin: 2rem auto;
-            padding: 2rem;
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 2rem;
         }
 
-        .demo-header {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .demo-header h1 {
-            font-size: 3rem;
-            color: var(--accent);
-            margin-bottom: 1rem;
-        }
-
-        .demo-header p {
-            font-size: 1.2rem;
-            max-width: 700px;
+        .hero-content {
+            max-width: 1200px;
             margin: 0 auto;
+            width: 100%;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-text h1 span {
+            color: var(--accent);
+            display: inline-block;
+        }
+
+        .hero-text p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 700px;
             opacity: 0.9;
         }
 
-        /* Demo Area */
-        .demo-area {
+        .divider {
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), rgba(255,215,0,0));
+            margin: 2rem 0;
+            width: 100px;
+        }
+
+        /* About Section */
+        .about {
             background: var(--card-bg);
-            padding: 3rem;
-            border-radius: 20px;
+            padding: 2.5rem;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 3rem 0;
             backdrop-filter: blur(5px);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            margin-bottom: 3rem;
-        }
-
-        #words {
-            min-height: 120px;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            text-align: center;
-            font-size: 1.2rem;
-            border: 1px solid var(--border-color);
-        }
-
-        #buzzword {
-            font-size: 2rem;
-            color: var(--accent);
-            font-weight: bold;
-            margin-top: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        #square {
-            width: 200px;
-            height: 200px;
-            background-color: var(--primary);
-            border-radius: 15px;
-            margin: 0 auto;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            border: 3px solid var(--accent);
-        }
-
-        #square:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Controls */
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.8rem 1.8rem;
-            border: none;
-            border-radius: 50px;
-            background: var(--accent);
-            color: var(--bg-primary);
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-            transition: all var(--transition-speed);
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            border: 1px solid var(--accent);
-        }
-
-        /* Instructions */
-        .instructions {
-            background: var(--card-bg);
-            padding: 2rem;
-            border-radius: 15px;
             border-left: 4px solid var(--accent);
-            backdrop-filter: blur(5px);
         }
 
-        .instructions h3 {
+        .about h2 {
             color: var(--accent);
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
             display: flex;
             align-items: center;
             gap: 0.8rem;
         }
 
-        .instructions ul {
-            list-style-position: inside;
-            padding-left: 0.5rem;
+        .about p {
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
         }
 
-        .instructions li {
-            margin-bottom: 0.8rem;
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
         }
 
-        /* Footer - Consistent with your portfolio */
+        .skill-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform var(--transition-speed);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 215, 0, 0.15);
+        }
+
+        .skill-card i {
+            font-size: 2.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Button */
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: all var(--transition-speed);
+            font-size: 1.1rem;
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Projects Section */
+        .projects {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            color: var(--accent);
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all var(--transition-speed);
+            backdrop-filter: blur(5px);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+        }
+
+        .project-img {
+            height: 200px;
+            display: grid;
+            place-items: center;
+            font-size: 3rem;
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-link {
+            display: inline-block;
+            padding: 0.7rem 1.5rem;
+            background: var(--accent);
+            color: var(--bg-primary);
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 1rem;
+            font-weight: 600;
+            transition: all var(--transition-speed);
+        }
+
+        .project-link:hover {
+            background: white;
+        }
+
+        /* Footer Section */
         footer {
             background: rgba(26, 26, 46, 0.95);
             padding: 2rem;
@@ -287,6 +336,24 @@
             font-size: 0.9rem;
         }
 
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            font-size: 1.2rem;
+            transition: all var(--transition-speed);
+        }
+
+        .social-links a:hover {
+            color: var(--accent);
+            transform: translateY(-3px);
+        }
+
         /* Dark Mode Toggle */
         .theme-toggle {
             position: fixed;
@@ -308,31 +375,24 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .container {
-                padding: 1.5rem;
+            .hero-text h1 {
+                font-size: 2.5rem;
             }
-            
-            .demo-header h1 {
-                font-size: 2.2rem;
+            .nav-links {
+                gap: 1rem;
             }
-            
-            .demo-area {
-                padding: 2rem 1.5rem;
+            .skills-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
             }
-            
-            #square {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .controls {
+            .footer-links {
                 flex-direction: column;
-                align-items: center;
+                gap: 1rem;
             }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
+            .theme-toggle {
+                bottom: 1rem;
+                right: 1rem;
+                width: 3rem;
+                height: 3rem;
             }
         }
     </style>
@@ -341,60 +401,112 @@
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="logo">Flatland Demo ✨</a>
+            <a href="index.html" class="logo">My Portfolio ✨</a>
             <ul class="nav-links">
-                <li><a href="index.html">Back to Portfolio</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="rps-game.html">RPS Game</a></li>
+                <li><a href="rss-reader.html">RSS Reader</a></li>
+                <li><a href="flatland.html">Flatland Demo</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="demo-header">
-            <h1><i class="fas fa-shapes"></i> Flatland Interactive</h1>
-            <p>Explore DOM manipulation through this interactive demo</p>
-        </div>
-        
-        <div class="demo-area">
-            <div id="words">
-                <p>Click the square to begin...</p>
-                <div id="buzzword"></div>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Hello, I'm <span>Vanshikha Jeewon</span> 👋</h1>
+                <p>Welcome to my AI-Assisted Web Development portfolio where human creativity meets artificial intelligence. 🚀</p>
+                
+                <div class="divider"></div>
+                
+                <div class="about" id="about">
+                    <h2><i class="fas fa-user-astronaut"></i> ABOUT ME</h2>
+                    <p>I'm a passionate web developer specializing in creating responsive, AI-enhanced digital experiences. 💻</p>
+                    <p>My approach combines technical expertise with creative problem-solving to build intuitive web applications. 🛠️</p>
+                    
+                    <div class="skills-grid">
+                        <div class="skill-card">
+                            <i class="fab fa-html5"></i>
+                            <h3>HTML5</h3>
+                        </div>
+                        <div class="skill-card">
+                            <i class="fab fa-css3-alt"></i>
+                            <h3>CSS3</h3>
+                        </div>
+                        <div class="skill-card">
+                            <i class="fab fa-js"></i>
+                            <h3>JavaScript</h3>
+                        </div>
+                        <div class="skill-card">
+                            <i class="fas fa-robot"></i>
+                            <h3>AI Integration</h3>
+                        </div>
+                    </div>
+                    
+                    <a href="tel:57683420" class="contact-btn">
+                        <i class="fas fa-phone-alt"></i> Contact Me: 57683420
+                    </a>
+                </div>
             </div>
-            
-            <div id="square">Click Me!</div>
-            
-            <div class="controls">
-                <button class="btn btn-secondary" id="resetBtn">
-                    <i class="fas fa-redo"></i> Reset
-                </button>
-                <button class="btn" id="buzzwordBtn">
-                    <i class="fas fa-bolt"></i> Generate Buzzword
-                </button>
-            </div>
         </div>
-        
-        <div class="instructions">
-            <h3><i class="fas fa-info-circle"></i> How to Interact:</h3>
-            <ul>
-                <li><strong>Click the square</strong> to change its color randomly</li>
-                <li><strong>Hover over the square</strong> to see it grow and lift</li>
-                <li><strong>Generate Buzzword</strong> for fun tech terminology</li>
-                <li><strong>Reset</strong> returns everything to the original state</li>
-                <li>Watch the message area for interactive feedback</li>
-            </ul>
-        </div>
-    </div>
+    </section>
 
-    <!-- Footer -->
+    <!-- Projects Section -->
+    <section class="projects">
+        <h2 class="section-title"><i class="fas fa-code"></i> Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-img" style="background: linear-gradient(135deg, #4a7aea, #8E54E9);">
+                    ✊✋✌️
+                </div>
+                <div class="project-info">
+                    <h3>Rock Paper Scissors</h3>
+                    <p>Interactive game with dynamic scoreboard 🎮</p>
+                    <a href="rps-game.html" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img" style="background: linear-gradient(135deg, #1FA2FF, #12D8FA);">
+                    📰
+                </div>
+                <div class="project-info">
+                    <h3>RSS Reader</h3>
+                    <p>Multi-feed dashboard with real-time updates 📊</p>
+                    <a href="rss-reader.html" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-img" style="background: linear-gradient(135deg, #ee8efb, #a777e3);">
+                    📐
+                </div>
+                <div class="project-info">
+                    <h3>Flatland Demo</h3>
+                    <p>Interactive DOM manipulation showcase</p>
+                    <a href="flatland.html" class="project-link">View Project</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer Section -->
     <footer>
         <div class="footer-content">
             <div class="footer-links">
                 <a href="index.html">Home</a>
-                <a href="index.html#about">About</a>
+                <a href="#about">About Me</a>
                 <a href="rps-game.html">RPS Game</a>
                 <a href="rss-reader.html">RSS Reader</a>
+                <a href="flatland.html">Flatland Demo</a>
             </div>
-            <p class="copyright">&copy; 2025 Vanshikha Jeewon. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+            </div>
+            <p class="copyright">&copy; 2025 Business Web & Mobile Technology. All rights reserved.</p>
         </div>
     </footer>
 
@@ -404,93 +516,7 @@
     </button>
 
     <script>
-        // DOM Elements
-        const square = document.getElementById('square');
-        const words = document.getElementById('words');
-        const buzzwordElement = document.getElementById('buzzword');
-        const resetBtn = document.getElementById('resetBtn');
-        const buzzwordBtn = document.getElementById('buzzwordBtn');
-        
-        // Buzzwords array - tech themed
-        const buzzwords = [
-            "SYNERGY", "CLOUD-NATIVE", "BLOCKCHAIN", 
-            "AI-DRIVEN", "IOT", "BIG DATA", 
-            "MACHINE LEARNING", "DEVOPS", "MICROSERVICES",
-            "QUANTUM", "METAVERSE", "WEB3",
-            "CRYPTO", "AR/VR", "NEURAL NETWORKS",
-            "DEEP LEARNING", "EDGE COMPUTING", "5G",
-            "CYBERSECURITY", "DATA SCIENCE"
-        ];
-        
-        // Color options - matching your theme
-        const colors = [
-            '#6e48aa', '#9d50bb', '#4776E6', 
-            '#1FA2FF', '#12D8FA', '#A6FFCB',
-            '#ffd700', '#ee8efb', '#a777e3'
-        ];
-        
-        // Initial setup
-        let clickCount = 0;
-        
-        // Event Listeners
-        square.addEventListener('click', function() {
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            this.style.backgroundColor = randomColor;
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 200);
-            
-            clickCount++;
-            if (clickCount === 1) {
-                words.querySelector('p').textContent = "Great! Now try hovering over me!";
-            } else if (clickCount === 3) {
-                words.querySelector('p').textContent = "You're getting the hang of this!";
-            } else if (clickCount === 5) {
-                words.querySelector('p').textContent = "DOM master in the making!";
-            }
-        });
-        
-        square.addEventListener('mouseover', function() {
-            this.style.transform = 'scale(1.1) rotate(5deg)';
-            this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.4)';
-        });
-        
-        square.addEventListener('mouseout', function() {
-            this.style.transform = 'scale(1) rotate(0)';
-            this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.2)';
-        });
-        
-        buzzwordBtn.addEventListener('click', function() {
-            const randomBuzzword = buzzwords[Math.floor(Math.random() * buzzwords.length)];
-            buzzwordElement.textContent = randomBuzzword;
-            
-            // Add animation
-            buzzwordElement.style.animation = 'none';
-            void buzzwordElement.offsetWidth; // Trigger reflow
-            buzzwordElement.style.animation = 'pulse 2s infinite';
-            
-            this.innerHTML = `<i class="fas fa-bolt"></i> Another Buzzword`;
-            words.querySelector('p').textContent = "Tech buzzword generated!";
-        });
-        
-        resetBtn.addEventListener('click', function() {
-            square.style.backgroundColor = var(--primary);
-            square.style.transform = 'scale(1)';
-            words.querySelector('p').textContent = "Click the square to begin...";
-            buzzwordElement.textContent = '';
-            clickCount = 0;
-            buzzwordBtn.innerHTML = `<i class="fas fa-bolt"></i> Generate Buzzword`;
-        });
-        
-        // Initial greeting
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                words.querySelector('p').textContent = "Welcome to Flatland Interactive!";
-            }, 1000);
-        });
-
-        // Dark Mode Functionality (consistent with your portfolio)
+        // Dark Mode Functionality
         document.addEventListener('DOMContentLoaded', () => {
             const themeToggle = document.querySelector('.theme-toggle');
             const icon = themeToggle.querySelector('i');
@@ -516,4 +542,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
