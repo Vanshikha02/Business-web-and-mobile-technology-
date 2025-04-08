@@ -213,3 +213,22 @@ nav {
       height: 30px; /* Smaller logo on mobile */
   }
 }
+#square {
+  width: 200px;
+  height: 200px;
+  background-color: gray;
+  margin: 20px;
+  transition: background-color 0.3s ease;
+}
+
+#words {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  font-size: 18px;
+}
+
+body {
+  background-color: lightblue;
+  margin: 0;
+  padding: 20px;
+}
