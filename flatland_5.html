@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flatland 5</title>
+    <style>
+        #square {
+            width: 200px;
+            height: 200px;
+            background-color: gray;
+            margin: 20px;
+        }
+        #words {
+            font-family: Arial;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="words">Welcome to Flatland</div>
+    <div id="square"></div>
+    <script>
+        document.body.style.backgroundColor = "lightblue";
+        
+        const square = document.getElementById('square');
+        
+        square.addEventListener('click', () => {
+            square.style.backgroundColor = 'red';
+        });
+        
+        square.addEventListener('mouseover', () => {
+            square.style.backgroundColor = 'green';
+        });
+        
+        square.addEventListener('mouseout', () => {
+            square.style.backgroundColor = 'gray';
+        });
+    </script>
+</body>
+</html>
