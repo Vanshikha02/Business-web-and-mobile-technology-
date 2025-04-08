@@ -32,3 +32,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('buzzword-btn').addEventListener('click', generateBuzzword);
 });
+const buzzwords = ["Paradigm", "Synergy", "Leverage", "Pivot", "Bandwidth"];
+
+window.onload = function() {
+    const square = document.getElementById('square');
+    const words = document.getElementById('words');
+    
+    // Set initial styles
+    document.body.style.backgroundColor = "lightblue";
+    words.textContent = "Welcome to Flatland - click the square!";
+    square.style.backgroundColor = "gray";
+    square.style.width = "200px";
+    square.style.height = "200px";
+    square.style.margin = "20px";
+    
+    // Event listeners
+    square.addEventListener('click', () => {
+        square.style.backgroundColor = 'red';
+        updateBuzzword();
+    });
+    
+    square.addEventListener('mouseover', () => {
+        square.style.backgroundColor = 'green';
+    });
+    
+    square.addEventListener('mouseout', () => {
+        square.style.backgroundColor = 'gray';
+    });
+    
+    function updateBuzzword() {
+        const randomWord = buzzwords[Math.floor(Math.random() * buzzwords.length)];
+        words.textContent = `Buzzword: ${randomWord}`;
+    }
+};
