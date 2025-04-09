@@ -1,343 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flatland Demo | Interactive DOM Manipulation</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Flatland Interactive</title>
     <style>
-        :root {
-            /* Consistent with your portfolio theme */
-            --primary: #6e48aa;
-            --secondary: #9d50bb;
-            --accent: #ffd700;
-            --text-primary: #ffffff;
-            --text-secondary: #e0e0e0;
-            --bg-primary: #1a1a2e;
-            --bg-secondary: #252547;
-            --card-bg: rgba(26, 26, 46, 0.7);
-            --overlay: rgba(30, 30, 46, 0.85);
-            --border-color: rgba(255, 215, 0, 0.2);
-            --transition-speed: 0.3s;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            transition: all var(--transition-speed);
-        }
-
         body {
-            font-family: 'Segoe UI', sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: url('../images/web-design-bg.jpg') no-repeat center center fixed;
-            background-size: cover;
-            position: relative;
-            min-height: 100vh;
-        }
-
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--overlay);
-            z-index: -1;
-        }
-
-        /* Navigation - Consistent with your portfolio */
-        nav {
-            background: rgba(26, 26, 46, 0.9);
-            padding: 1.5rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-            background: rgba(255, 215, 0, 0.1);
-        }
-
-        /* Flatland Demo Styles */
-        .flatland-container {
+            font-family: Arial, sans-serif;
             max-width: 800px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: var(--card-bg);
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
-            border: 1px solid var(--border-color);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            color: #2c3e50;
             text-align: center;
         }
-
-        .flatland-container h1 {
-            color: var(--accent);
-            margin-bottom: 1rem;
-            font-size: 2.5rem;
+        .intro {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-
-        #words {
-            min-height: 100px;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            margin: 2rem 0;
-            font-size: 1.2rem;
-            border: 1px solid var(--border-color);
+        .versions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
         }
-
-        #buzzword {
-            font-size: 2rem;
-            color: var(--accent);
+        .version-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+        }
+        .version-card:hover {
+            transform: translateY(-5px);
+        }
+        a {
+            text-decoration: none;
+            color: #3498db;
             font-weight: bold;
-            margin-top: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            animation: pulse 2s infinite;
         }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        #square {
-            width: 200px;
-            height: 200px;
-            background: var(--primary);
-            margin: 2rem auto;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            border: 3px solid var(--accent);
-        }
-
-        #square:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .flatland-controls {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .flatland-btn {
-            padding: 0.8rem 1.8rem;
-            border: none;
-            border-radius: 50px;
-            background: var(--accent);
-            color: var(--bg-primary);
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
-        }
-
-        .flatland-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
-        }
-
-        .flatland-btn:active {
-            transform: translateY(0);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text-primary);
-            border: 1px solid var(--accent);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .flatland-container {
-                padding: 1.5rem;
-                margin: 1rem;
-            }
-            
-            #square {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .flatland-controls {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .flatland-btn {
-                width: 100%;
-                justify-content: center;
-            }
+        .demo-square {
+            width: 100px;
+            height: 100px;
+            background: gray;
+            margin: 10px auto;
+            border-radius: 4px;
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="index.html" class="logo">Flatland Demo ✨</a>
-            <ul class="nav-links">
-                <li><a href="index.html">← Back to Portfolio</a></li>
-            </ul>
-        </div>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="flatland-container">
-        <h1><i class="fas fa-shapes"></i> Flatland Interactive</h1>
+    <h1>Flatland Interactive</h1>
+    
+    <div class="intro">
         <p>Explore DOM manipulation through this interactive demo</p>
-        
-        <div id="words">
-            <p>Click the square to begin...</p>
-            <div id="buzzword"></div>
+        <p>Welcome to Flatland Interactive!</p>
+        <p>Click on any version below to see the progression:</p>
+    </div>
+
+    <div class="versions">
+        <div class="version-card">
+            <div class="demo-square" style="background: gray;"></div>
+            <h3>Version 1</h3>
+            <p>Basic Structure</p>
+            <a href="flatland_1.html">View Version 1</a>
         </div>
         
-        <div id="square">Click Me!</div>
-        
-        <div class="flatland-controls">
-            <button class="flatland-btn btn-secondary" id="reset-btn">
-                <i class="fas fa-redo"></i> Reset
-            </button>
-            <button class="flatland-btn" id="buzzword-btn">
-                <i class="fas fa-bolt"></i> Generate Buzzword
-            </button>
+        <div class="version-card">
+            <div class="demo-square" style="background: gray;" onclick="this.style.background='red'"></div>
+            <h3>Version 2</h3>
+            <p>Click Event</p>
+            <a href="flatland_2.html">View Version 2</a>
         </div>
-    </main>
+        
+        <div class="version-card">
+            <div class="demo-square" 
+                 style="background: gray;"
+                 onmouseover="this.style.background='green'"
+                 onmouseout="this.style.background='gray'"
+                 onclick="this.style.background='red'"></div>
+            <h3>Version 3</h3>
+            <p>Multiple Events</p>
+            <a href="flatland_3.html">View Version 3</a>
+        </div>
+        
+        <div class="version-card">
+            <div class="demo-square" 
+                 style="background: gray;"
+                 onclick="changeColor(this,'red')"
+                 onmouseover="changeColor(this,'green')"
+                 onmouseout="changeColor(this,'gray')"></div>
+            <h3>Version 4</h3>
+            <p>Parameterized Function</p>
+            <a href="flatland_4.html">View Version 4</a>
+        </div>
+        
+        <div class="version-card">
+            <div class="demo-square" id="v5-square"></div>
+            <h3>Version 5</h3>
+            <p>JavaScript Event Listeners</p>
+            <a href="flatland_5.html">View Version 5</a>
+        </div>
+        
+        <div class="version-card">
+            <div class="demo-square" id="v6-square"></div>
+            <h3>Version 6</h3>
+            <p>Dynamic Content</p>
+            <a href="flatland_6.html">View Version 6</a>
+        </div>
+        
+        <div class="version-card">
+            <div class="demo-square" id="v7-square"></div>
+            <h3>Version 7</h3>
+            <p>External JavaScript</p>
+            <a href="flatland_7.html">View Version 7</a>
+        </div>
+        
+        <div class="version-card">
+            <div class="demo-square" id="v8-square"></div>
+            <h3>Version 8</h3>
+            <p>Final Version</p>
+            <a href="flatland_8.html">View Version 8</a>
+        </div>
+    </div>
 
     <script>
-        // DOM Elements
-        const square = document.getElementById('square');
-        const words = document.getElementById('words');
-        const buzzwordElement = document.getElementById('buzzword');
-        const resetBtn = document.getElementById('reset-btn');
-        const buzzwordBtn = document.getElementById('buzzword-btn');
+        // For version 4 demo
+        function changeColor(element, color) {
+            element.style.background = color;
+        }
         
-        // Buzzwords array - tech themed
-        const buzzwords = [
-            "SYNERGY", "CLOUD-NATIVE", "BLOCKCHAIN", 
-            "AI-DRIVEN", "IOT", "BIG DATA", 
-            "MACHINE LEARNING", "DEVOPS", "MICROSERVICES",
-            "QUANTUM", "METAVERSE", "WEB3",
-            "CRYPTO", "AR/VR", "NEURAL NETWORKS"
-        ];
-        
-        // Color options - matching your theme
-        const colors = [
-            '#6e48aa', '#9d50bb', '#4776E6', 
-            '#1FA2FF', '#12D8FA', '#A6FFCB',
-            '#ffd700', '#ee8efb', '#a777e3'
-        ];
-        
-        // Initial setup
-        let clickCount = 0;
-        
-        // Event Listeners
-        square.addEventListener('click', function() {
-            const randomColor = colors[Math.floor(Math.random() * colors.length)];
-            this.style.backgroundColor = randomColor;
-            this.style.transform = 'scale(0.95)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 200);
+        // For versions 5-8 demo
+        document.addEventListener('DOMContentLoaded', function() {
+            // Version 5
+            const v5 = document.getElementById('v5-square');
+            v5.style.background = 'gray';
+            v5.addEventListener('click', () => v5.style.background = 'red');
+            v5.addEventListener('mouseover', () => v5.style.background = 'green');
+            v5.addEventListener('mouseout', () => v5.style.background = 'gray');
             
-            clickCount++;
-            if (clickCount === 1) {
-                words.querySelector('p').textContent = "Great! Now try hovering over me!";
-            } else if (clickCount === 3) {
-                words.querySelector('p').textContent = "You're getting the hang of this!";
-            } else if (clickCount === 5) {
-                words.querySelector('p').textContent = "DOM master in the making!";
-            }
-        });
-        
-        square.addEventListener('mouseover', function() {
-            this.style.transform = 'scale(1.1) rotate(5deg)';
-            this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.4)';
-        });
-        
-        square.addEventListener('mouseout', function() {
-            this.style.transform = 'scale(1) rotate(0)';
-            this.style.boxShadow = '0 8px 20px rgba(0, 0, 0, 0.2)';
-        });
-        
-        buzzwordBtn.addEventListener('click', function() {
-            const randomBuzzword = buzzwords[Math.floor(Math.random() * buzzwords.length)];
-            buzzwordElement.textContent = randomBuzzword;
-            
-            // Add animation
-            buzzwordElement.style.animation = 'none';
-            void buzzwordElement.offsetWidth; // Trigger reflow
-            buzzwordElement.style.animation = 'pulse 2s infinite';
-            
-            this.innerHTML = `<i class="fas fa-bolt"></i> Another Buzzword`;
-            words.querySelector('p').textContent = "Tech buzzword generated!";
-        });
-        
-        resetBtn.addEventListener('click', function() {
-            square.style.backgroundColor = 'var(--primary)';
-            square.style.transform = 'scale(1)';
-            words.querySelector('p').textContent = "Click the square to begin...";
-            buzzwordElement.textContent = '';
-            clickCount = 0;
-            buzzwordBtn.innerHTML = `<i class="fas fa-bolt"></i> Generate Buzzword`;
-        });
-        
-        // Initial greeting
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                words.querySelector('p').textContent = "Welcome to Flatland Interactive!";
-            }, 1000);
+            // Version 6-8 use the same interactions in this preview
+            [6,7,8].forEach(num => {
+                const sq = document.getElementById(`v${num}-square`);
+                sq.style.background = 'gray';
+                sq.addEventListener('click', () => {
+                    sq.style.background = 'red';
+                    sq.textContent = 'Clicked!';
+                    setTimeout(() => sq.textContent = '', 1000);
+                });
+                sq.addEventListener('mouseover', () => sq.style.background = 'green');
+                sq.addEventListener('mouseout', () => sq.style.background = 'gray');
+            });
         });
     </script>
 </body>
