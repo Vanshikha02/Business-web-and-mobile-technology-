@@ -1,33 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flatland 3</title>
-    <style>
-        #square {
-            width: 200px;
-            height: 200px;
-            background-color: gray;
-            margin: 20px;
-        }
-        #words {
-            font-family: Arial;
-            margin: 20px;
-        }
-    </style>
-    <script>
-        function makeGreen() { document.getElementById('square').style.backgroundColor = 'green'; }
-        function makeGray() { document.getElementById('square').style.backgroundColor = 'gray'; }
-        function makeRed() { document.getElementById('square').style.backgroundColor = 'red'; }
-    </script>
+    <meta charset="UTF-8">
+    <title>Flatland</title>
+    <meta name="author" content="Your Name">
+    <meta name="description" content="Explore flatland">
 </head>
 <body>
-    <div id="words">Welcome to Flatland</div>
-    <div id="square" 
-         onclick="makeRed()" 
-         onmouseover="makeGreen()" 
-         onmouseout="makeGray()"></div>
-    <script>
-        document.body.style.backgroundColor = "lightblue";
-    </script>
+    <div id="words"></div>
+    <div id="square" onclick="document.getElementById('square').style.background = 'green'"></div>
 </body>
 </html>
