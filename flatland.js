@@ -128,36 +128,41 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('Flatland interactive demo initialized successfully');
 });
 /* Flatland Interactive Script */
-let square = document.getElementById('square');
-let words = document.getElementById('words');
+document.addEventListener('DOMContentLoaded', function() {
+    let square = document.getElementById('square');
+    let words = document.getElementById('words');
 
-document.onload = greeting();
+    // Initial greeting
+    greeting();
 
-square.addEventListener('click', (event) => clicked());
-square.addEventListener('mouseover', (event) => changeColour('gray'));
-square.addEventListener('mouseout', (event) => changeColour('red'));
+    // Event listeners
+    square.addEventListener('click', clicked);
+    square.addEventListener('mouseover', function() { changeColour('gray'); });
+    square.addEventListener('mouseout', function() { changeColour('red'); });
 
-function changeColour(colour) {
-    square.style.background = colour;
-}
+    function changeColour(colour) {
+        square.style.background = colour;
+    }
 
-function greeting() {
-    words.innerHTML = "Welcome to Flatland.<br> I am Square.";
-}
+    function greeting() {
+        words.innerHTML = "Welcome to Flatland.<br> I am Square.";
+    }
 
-function clicked() {
-    let msg = "Build a<br>" + createBuzzwordPhrase();
-    words.innerHTML = msg;
-}
+    function clicked() {
+        let msg = "Build a<br>" + createBuzzwordPhrase();
+        words.innerHTML = msg;
+        changeColour('green');
+    }
 
-function createBuzzwordPhrase() {
-    let buzz = ["Paradigm-changing", "Multi-tier", "10,000-foot", "Agile", "Customer", "Win-win"];
-    let action = ["empowered", "value-added", "synergy", "creative", "oriented", "focused", "aligned"];
-    let outcome = ["process", "deliverable", "solution", "tipping-point", "strategy", "vision"];
+    function createBuzzwordPhrase() {
+        let buzz = ["Paradigm-changing", "Multi-tier", "10,000-foot", "Agile", "Customer", "Win-win"];
+        let action = ["empowered", "value-added", "synergy", "creative", "oriented", "focused", "aligned"];
+        let outcome = ["process", "deliverable", "solution", "tipping-point", "strategy", "vision"];
 
-    let idx_buz = Math.floor(Math.random() * buzz.length);
-    let idx_act = Math.floor(Math.random() * action.length);
-    let idx_out = Math.floor(Math.random() * outcome.length);
+        let idx_buz = Math.floor(Math.random() * buzz.length);
+        let idx_act = Math.floor(Math.random() * action.length);
+        let idx_out = Math.floor(Math.random() * outcome.length);
 
-    return buzz[idx_buz] + " " + action[idx_act] + " " + outcome[idx_out];
-}
+        return buzz[idx_buz] + " " + action[idx_act] + " " + outcome[idx_out];
+    }
+});
