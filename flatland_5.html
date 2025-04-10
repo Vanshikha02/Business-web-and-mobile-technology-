@@ -2,16 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Flatland</title>
+    <title>Flatland 5</title>
     <meta name="author" content="Your Name">
-    <meta name="description" content="Explore flatland">
 </head>
 <body>
     <div id="words"></div>
-    <div id="square" onclick="changeColour('green')" onmouseover="changeColour('gray')" onmouseout="changeColour('red')"></div>
+    <div id="square"></div>
 
     <script>
         let square = document.getElementById('square');
+        
+        square.addEventListener('click', function() { changeColour('green'); });
+        square.addEventListener('mouseover', function() { changeColour('gray'); });
+        square.addEventListener('mouseout', function() { changeColour('red'); });
+
         function changeColour(colour) {
             square.style.background = colour;
         }
