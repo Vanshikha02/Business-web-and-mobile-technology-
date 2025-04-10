@@ -1,159 +1,234 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flatland Interactive</title>
+    <meta charset="UTF-8">
+    <title>Flatland Interactive Demo</title>
     <style>
+        /* Base styles for all versions */
         body {
             font-family: Arial, sans-serif;
+            padding: 20px;
             max-width: 800px;
             margin: 0 auto;
+        }
+        
+        /* Version selector styling */
+        #version-selector {
+            margin: 20px 0;
+            padding: 10px;
+            background: #f0f0f0;
+            border-radius: 5px;
+        }
+        
+        #version-selector button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        
+        /* Container for the demo */
+        #demo-container {
+            border: 1px solid #ddd;
             padding: 20px;
-            background-color: #f5f5f5;
+            margin-top: 20px;
+            min-height: 300px;
         }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
+        
+        /* Common Flatland elements */
+        #words {
+            margin: 20px 0;
+            min-height: 50px;
+            font-size: 18px;
         }
-        .intro {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .versions {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        .version-card {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.2s;
-        }
-        .version-card:hover {
-            transform: translateY(-5px);
-        }
-        a {
-            text-decoration: none;
-            color: #3498db;
-            font-weight: bold;
-        }
-        .demo-square {
-            width: 100px;
-            height: 100px;
-            background: gray;
-            margin: 10px auto;
-            border-radius: 4px;
+        
+        #square {
+            width: 200px;
+            height: 200px;
+            margin: 20px 0;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <h1>Flatland Interactive</h1>
+    <h1>Flatland Interactive Demo</h1>
     
-    <div class="intro">
-        <p>Explore DOM manipulation through this interactive demo</p>
-        <p>Welcome to Flatland Interactive!</p>
-        <p>Click on any version below to see the progression:</p>
+    <div id="version-selector">
+        <h3>Select Version:</h3>
+        <button onclick="loadVersion(1)">Version 1</button>
+        <button onclick="loadVersion(2)">Version 2</button>
+        <button onclick="loadVersion(3)">Version 3</button>
+        <button onclick="loadVersion(4)">Version 4</button>
+        <button onclick="loadVersion(5)">Version 5</button>
+        <button onclick="loadVersion(6)">Version 6</button>
+        <button onclick="loadVersion(7)">Version 7</button>
+        <button onclick="loadVersion(8)">Version 8</button>
     </div>
-
-    <div class="versions">
-        <div class="version-card">
-            <div class="demo-square" style="background: gray;"></div>
-            <h3>Version 1</h3>
-            <p>Basic Structure</p>
-            <a href="flatland_1.html">View Version 1</a>
-        </div>
-        
-        <div class="version-card">
-            <div class="demo-square" style="background: gray;" onclick="this.style.background='red'"></div>
-            <h3>Version 2</h3>
-            <p>Click Event</p>
-            <a href="flatland_2.html">View Version 2</a>
-        </div>
-        
-        <div class="version-card">
-            <div class="demo-square" 
-                 style="background: gray;"
-                 onmouseover="this.style.background='green'"
-                 onmouseout="this.style.background='gray'"
-                 onclick="this.style.background='red'"></div>
-            <h3>Version 3</h3>
-            <p>Multiple Events</p>
-            <a href="flatland_3.html">View Version 3</a>
-        </div>
-        
-        <div class="version-card">
-            <div class="demo-square" 
-                 style="background: gray;"
-                 onclick="changeColor(this,'red')"
-                 onmouseover="changeColor(this,'green')"
-                 onmouseout="changeColor(this,'gray')"></div>
-            <h3>Version 4</h3>
-            <p>Parameterized Function</p>
-            <a href="flatland_4.html">View Version 4</a>
-        </div>
-        
-        <div class="version-card">
-            <div class="demo-square" id="v5-square"></div>
-            <h3>Version 5</h3>
-            <p>JavaScript Event Listeners</p>
-            <a href="flatland_5.html">View Version 5</a>
-        </div>
-        
-        <div class="version-card">
-            <div class="demo-square" id="v6-square"></div>
-            <h3>Version 6</h3>
-            <p>Dynamic Content</p>
-            <a href="flatland_6.html">View Version 6</a>
-        </div>
-        
-        <div class="version-card">
-            <div class="demo-square" id="v7-square"></div>
-            <h3>Version 7</h3>
-            <p>External JavaScript</p>
-            <a href="flatland_7.html">View Version 7</a>
-        </div>
-        
-        <div class="version-card">
-            <div class="demo-square" id="v8-square"></div>
-            <h3>Version 8</h3>
-            <p>Final Version</p>
-            <a href="flatland_8.html">View Version 8</a>
-        </div>
+    
+    <div id="demo-container">
+        <div id="words"></div>
+        <div id="square"></div>
+        <button id="reset-btn" style="display: none;">Reset</button>
     </div>
-
+    
     <script>
-        // For version 4 demo
-        function changeColor(element, color) {
-            element.style.background = color;
+        // Store all versions' code
+        const versions = {
+            1: function() {
+                document.body.style.background = "lightblue";
+                document.getElementById('square').style.background = "gray";
+                document.getElementById('words').textContent = "Welcome to Flatland";
+            },
+            
+            2: function() {
+                document.body.style.background = "lightblue";
+                document.getElementById('square').style.background = "gray";
+                document.getElementById('words').textContent = "Welcome to Flatland";
+            },
+            
+            3: function() {
+                document.body.style.background = "lightblue";
+                const square = document.getElementById('square');
+                square.style.background = "gray";
+                square.onclick = function() {
+                    this.style.background = "green";
+                };
+                document.getElementById('words').textContent = "Welcome to Flatland";
+            },
+            
+            4: function() {
+                document.body.style.background = "lightblue";
+                const square = document.getElementById('square');
+                square.style.background = "red";
+                
+                square.onclick = function() { makeGreen(); };
+                square.onmouseover = function() { makeGray(); };
+                square.onmouseout = function() { makeRed(); };
+                
+                function makeGreen() { square.style.background = "green"; }
+                function makeGray() { square.style.background = "gray"; }
+                function makeRed() { square.style.background = "red"; }
+                
+                document.getElementById('words').textContent = "Welcome to Flatland";
+            },
+            
+            5: function() {
+                document.body.style.background = "lightblue";
+                const square = document.getElementById('square');
+                square.style.background = "red";
+                
+                square.addEventListener('click', () => changeColour('green'));
+                square.addEventListener('mouseover', () => changeColour('gray'));
+                square.addEventListener('mouseout', () => changeColour('red'));
+                
+                function changeColour(colour) {
+                    square.style.background = colour;
+                }
+                
+                document.getElementById('words').textContent = "Welcome to Flatland";
+            },
+            
+            6: function() {
+                document.body.style.background = "lightblue";
+                const square = document.getElementById('square');
+                square.style.background = "red";
+                
+                square.addEventListener('click', () => changeColour('green'));
+                square.addEventListener('mouseover', () => changeColour('gray'));
+                square.addEventListener('mouseout', () => changeColour('red'));
+                
+                function changeColour(colour) {
+                    square.style.background = colour;
+                }
+                
+                // Onload functionality
+                document.getElementById('words').textContent = "Hello, Flatlander!";
+            },
+            
+            7: function() {
+                document.body.style.background = "lightblue";
+                const square = document.getElementById('square');
+                const words = document.getElementById('words');
+                square.style.background = "red";
+                
+                square.addEventListener('click', () => changeColour('green'));
+                square.addEventListener('mouseover', () => changeColour('gray'));
+                square.addEventListener('mouseout', () => changeColour('red'));
+                
+                function changeColour(colour) {
+                    square.style.background = colour;
+                }
+                
+                // Dynamic content
+                words.innerHTML = "Welcome to Flatland.<br>I am Square.";
+            },
+            
+            8: function() {
+                document.body.style.background = "lightblue";
+                const square = document.getElementById('square');
+                const words = document.getElementById('words');
+                const resetBtn = document.getElementById('reset-btn');
+                resetBtn.style.display = "inline-block";
+                
+                square.style.cssText = `
+                    width: 200px;
+                    height: 200px;
+                    background: gray;
+                    margin: 20px auto;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                `;
+                
+                words.textContent = "Welcome to Flatland - click the square!";
+                
+                // Buzzword generator
+                const buzzwords = [
+                    "Paradigm", "Synergy", "Leverage", "Pivot", "Bandwidth",
+                    "Blockchain", "Cloud", "AI", "Big Data"
+                ];
+                
+                square.addEventListener('click', () => {
+                    square.style.backgroundColor = 'red';
+                    const randomWord = buzzwords[Math.floor(Math.random() * buzzwords.length)];
+                    words.textContent = `Buzzword: ${randomWord}`;
+                });
+                
+                square.addEventListener('mouseover', () => {
+                    square.style.backgroundColor = 'green';
+                });
+                
+                square.addEventListener('mouseout', () => {
+                    square.style.backgroundColor = 'gray';
+                });
+                
+                resetBtn.addEventListener('click', () => {
+                    square.style.backgroundColor = 'gray';
+                    words.textContent = "Welcome to Flatland - click the square!";
+                });
+            }
+        };
+        
+        // Function to load a specific version
+        function loadVersion(versionNumber) {
+            // Reset the demo container first
+            document.getElementById('demo-container').innerHTML = `
+                <div id="words"></div>
+                <div id="square"></div>
+                <button id="reset-btn" style="display: none;">Reset</button>
+            `;
+            
+            // Load the selected version
+            if (versions[versionNumber]) {
+                versions[versionNumber]();
+                document.getElementById('version-selector').querySelectorAll('button').forEach(btn => {
+                    btn.style.fontWeight = 'normal';
+                });
+                document.querySelector(`#version-selector button[onclick="loadVersion(${versionNumber})"]`)
+                    .style.fontWeight = 'bold';
+            }
         }
         
-        // For versions 5-8 demo
-        document.addEventListener('DOMContentLoaded', function() {
-            // Version 5
-            const v5 = document.getElementById('v5-square');
-            v5.style.background = 'gray';
-            v5.addEventListener('click', () => v5.style.background = 'red');
-            v5.addEventListener('mouseover', () => v5.style.background = 'green');
-            v5.addEventListener('mouseout', () => v5.style.background = 'gray');
-            
-            // Version 6-8 use the same interactions in this preview
-            [6,7,8].forEach(num => {
-                const sq = document.getElementById(`v${num}-square`);
-                sq.style.background = 'gray';
-                sq.addEventListener('click', () => {
-                    sq.style.background = 'red';
-                    sq.textContent = 'Clicked!';
-                    setTimeout(() => sq.textContent = '', 1000);
-                });
-                sq.addEventListener('mouseover', () => sq.style.background = 'green');
-                sq.addEventListener('mouseout', () => sq.style.background = 'gray');
-            });
-        });
+        // Load the first version by default
+        loadVersion(1);
     </script>
 </body>
 </html>
