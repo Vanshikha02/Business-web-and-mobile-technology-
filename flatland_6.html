@@ -1,43 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flatland 6</title>
-    <style>
-        #square {
-            width: 200px;
-            height: 200px;
-            background-color: gray;
-            margin: 20px;
-        }
-        #words {
-            font-family: Arial;
-            margin: 20px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>Flatland</title>
+    <meta name="author" content="Your Name">
+    <meta name="description" content="Explore flatland">
 </head>
-<body>
+<body onload="console.log('Welcome to Flatland. I am Square.');">
     <div id="words"></div>
     <div id="square"></div>
+
     <script>
-        document.body.style.backgroundColor = "lightblue";
-        
-        window.onload = function() {
-            document.getElementById('words').textContent = "Hello, Flatlander!";
-            
-            const square = document.getElementById('square');
-            
-            square.addEventListener('click', () => {
-                square.style.backgroundColor = 'red';
-            });
-            
-            square.addEventListener('mouseover', () => {
-                square.style.backgroundColor = 'green';
-            });
-            
-            square.addEventListener('mouseout', () => {
-                square.style.backgroundColor = 'gray';
-            });
-        };
+        let square = document.getElementById('square');
+        square.addEventListener('click', (event) => changeColour('green'));
+        square.addEventListener('mouseover', (event) => changeColour('gray'));
+        square.addEventListener('mouseout', (event) => changeColour('red'));
+
+        function changeColour(colour) {
+            square.style.background = colour;
+        }
     </script>
 </body>
 </html>
