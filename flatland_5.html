@@ -1,39 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flatland 5</title>
-    <style>
-        #square {
-            width: 200px;
-            height: 200px;
-            background-color: gray;
-            margin: 20px;
-        }
-        #words {
-            font-family: Arial;
-            margin: 20px;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <title>Flatland</title>
+    <meta name="author" content="Your Name">
+    <meta name="description" content="Explore flatland">
 </head>
 <body>
-    <div id="words">Welcome to Flatland</div>
-    <div id="square"></div>
+    <div id="words"></div>
+    <div id="square" onclick="changeColour('green')" onmouseover="changeColour('gray')" onmouseout="changeColour('red')"></div>
+
     <script>
-        document.body.style.backgroundColor = "lightblue";
-        
-        const square = document.getElementById('square');
-        
-        square.addEventListener('click', () => {
-            square.style.backgroundColor = 'red';
-        });
-        
-        square.addEventListener('mouseover', () => {
-            square.style.backgroundColor = 'green';
-        });
-        
-        square.addEventListener('mouseout', () => {
-            square.style.backgroundColor = 'gray';
-        });
+        let square = document.getElementById('square');
+        function changeColour(colour) {
+            square.style.background = colour;
+        }
     </script>
 </body>
 </html>
