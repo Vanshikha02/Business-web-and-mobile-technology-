@@ -436,3 +436,15 @@ body {
   border-radius: 10%;
   border-right: 5px solid red;
 }
+/* Base mobile styles */
+.container { padding: 1rem; }
+
+/* Tablet breakpoint */
+@media (min-width: 768px) {
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Desktop breakpoint */
+@media (min-width: 1024px) {
+  .projects-grid { grid-template-columns: repeat(4, 1fr); }
+}
