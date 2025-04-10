@@ -1,23 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Flatland 7</title>
-    <style>
-        #square {
-            width: 200px;
-            height: 200px;
-            background-color: gray;
-            margin: 20px;
-        }
-        #words {
-            font-family: Arial;
-            margin: 20px;
-        }
-    </style>
-    <script src="js/flatland.js"></script>
+    <meta charset="UTF-8">
+    <title>Flatland</title>
+    <meta name="author" content="Your Name">
+    <meta name="description" content="Explore flatland">
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
-<body>
+<body onload="greeting()">
     <div id="words"></div>
     <div id="square"></div>
+
+    <script>
+        let square = document.getElementById('square');
+        let words = document.getElementById('words');
+
+        square.addEventListener('click', (event) => changeColour('green'));
+        square.addEventListener('mouseover', (event) => changeColour('gray'));
+        square.addEventListener('mouseout', (event) => changeColour('red'));
+
+        function changeColour(colour) {
+            square.style.background = colour;
+        }
+
+        function greeting() {
+            words.innerHTML = "Welcome to Flatland.<br> I am Square.";
+        }
+    </script>
 </body>
 </html>
