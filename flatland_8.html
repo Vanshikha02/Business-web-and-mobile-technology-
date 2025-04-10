@@ -1,15 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Flatland Interactive Demo</title>
+    <title>Flatland 8 - Final Version</title>
+    <style>
+        /* TEMPORARY INLINE STYLE TO ENSURE VISIBILITY */
+        #square {
+            width: 200px;
+            height: 200px;
+            background-color: gray;
+            margin: 20px auto;
+            border: 2px solid black; /* Makes element visible even if JS fails */
+        }
+    </style>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="words">Loading...</div>
+    <div id="words">Initializing...</div>
     <div id="square"></div>
     <button id="reset-btn">Reset</button>
-    
-    <!-- Load JavaScript LAST -->
+
     <script src="js/flatland.js"></script>
 </body>
 </html>
