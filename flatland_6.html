@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Flatland</title>
+    <title>Flatland 6</title>
     <meta name="author" content="Your Name">
-    <meta name="description" content="Explore flatland">
 </head>
 <body onload="console.log('Welcome to Flatland. I am Square.');">
     <div id="words"></div>
@@ -12,9 +11,10 @@
 
     <script>
         let square = document.getElementById('square');
-        square.addEventListener('click', (event) => changeColour('green'));
-        square.addEventListener('mouseover', (event) => changeColour('gray'));
-        square.addEventListener('mouseout', (event) => changeColour('red'));
+        
+        square.addEventListener('click', function() { changeColour('green'); });
+        square.addEventListener('mouseover', function() { changeColour('gray'); });
+        square.addEventListener('mouseout', function() { changeColour('red'); });
 
         function changeColour(colour) {
             square.style.background = colour;
