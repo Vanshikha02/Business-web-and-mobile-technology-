@@ -463,3 +463,13 @@ body {
     flex-direction: column;
   }
 }
+/* Add mobile menu toggle */
+.mobile-menu-btn {
+  display: block; /* Show on mobile */
+}
+
+@media (min-width: 768px) {
+  .mobile-menu-btn {
+    display: none; /* Hide on desktop */
+  }
+}
